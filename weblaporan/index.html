@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Kutipan Estetik Modern</title>
+    
+    <!-- Mengambil Font Modern Poppins dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. VARIABEL & PENGATURAN DASAR CSS
+           ========================================= */
+        :root {
+            /* Palet Warna Tema Gelap & Futuristik */
+            --bg-dark: #0f0c29;
+            --bg-mid: #302b63;
+            --bg-light: #24243e;
+            --accent-color: #a18cd1; /* Warna aksen ungu muda */
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+            
+            /* Pengaturan Glassmorphism (Efek Kaca) */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            
+            /* Font & Transisi */
+            --font-main: 'Poppins', sans-serif;
+            --anim-speed: 0.4s;
+        }
+
+        /* Reset CSS agar elemen default browser tidak mengganggu */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Styling Body (Latar Belakang Utama) */
+        body {
+            font-family: var(--font-main);
+            /* Membuat background gradient yang bergerak */
+            background: linear-gradient(-45deg, var(--bg-dark), var(--bg-mid), var(--bg-light), #1a0b2e);
+            background-size: 400% 400%;
+            animation: gradientAnimasi 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            overflow: hidden; /* Mencegah scrollbar muncul saat animasi */
+        }
+
+        /* Keyframes untuk animasi background */
+        @keyframes gradientAnimasi {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* =========================================
+           2. LAYOUT & KARTU KACA (GLASSMORPHISM)
+           ========================================= */
+        .container-utama {
+            width: 90%;
+            max-width: 600px;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .kartu-kutipan {
+            background: var(--glass-bg);
+            /* Kunci efek blur kaca */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            box-shadow: var(--glass-shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        /* Efek hover halus pada kartu */
+        .kartu-kutipan:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Elemen dekoratif cahaya (Glow) di belakang kartu */
+        .cahaya {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--accent-color);
+            filter: blur(80px);
+            opacity: 0.4;
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .cahaya-1 { top: -50px; left: -50px; }
+        .cahaya-2 { bottom: -50px; right: -50px; background: #fbc2eb; }
+
+        /* =========================================
+           3. TIPOGRAFI & KONTEN KUTIPAN
+           ========================================= */
+        .ikon-kutipan {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .teks-kutipan {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            min-height: 120px; /* Mencegah lompatan layout saat teks berganti */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity var(--anim-speed) ease, transform var(--anim-speed) ease;
+        }
+
+        .penulis-kutipan {
+            font-size: 1rem;
+            color: var(--text-gray);
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 2.5rem;
+            display: block;
+            min-height: 1.5em;
+            transition: opacity var(--anim-speed) ease;
+        }
+
+        /* Kelas utilitas untuk animasi masuk dan keluar */
+        .memudar-keluar {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .memudar-masuk {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* =========================================
+           4. TOMBOL & KONTROL
+           ========================================= */
+        .area-tombol {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tombol {
+            border: none;
+            outline: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: var(--font-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ikon-svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Tombol Utama (Kutipan Baru) */
+        .tombol-utama {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+            width: 100%; /* Lebar penuh di HP */
+            justify-content: center;
+        }
+
+        .tombol-utama:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(118, 75, 162, 0.6);
+        }
+
+        /* Tombol Sekunder (Salin & Bagikan) */
+        .tombol-sekunder {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tombol-sekunder:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Baris aksi (untuk tombol copy/share) */
+        .baris-aksi {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* =========================================
+           5. ANIMASI LOADING
+           ========================================= */
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: berputar 0.8s ease-in-out infinite;
+            display: none; /* Tersembunyi secara default */
+        }
+
+        @keyframes berputar {
+            to { transform: rotate(360deg); }
+        }
+
+        /* =========================================
+           6. NOTIFIKASI TOAST (PENGGANTI ALERT)
+           ========================================= */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.muncul {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsif untuk layar Desktop */
+        @media (min-width: 600px) {
+            .tombol-utama { width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-utama">
+        <div class="kartu-kutipan">
+            <!-- Efek Glow -->
+            <div class="cahaya cahaya-1"></div>
+            <div class="cahaya cahaya-2"></div>
+
+            <!-- Ikon Kutipan Besar -->
+            <div class="ikon-kutipan">❝</div>
+
+            <!-- Area Teks Kutipan -->
+            <div class="isi-konten">
+                <p class="teks-kutipan memudar-masuk" id="teks-quote">"Memuat inspirasi..."</p>
+                <span class="penulis-kutipan memudar-masuk" id="nama-penulis">- Sistem</span>
+            </div>
+
+            <!-- Tombol Utama -->
+            <div class="area-tombol">
+                <button class="tombol tombol-utama" id="btn-quote-baru">
+                    <span class="teks-tombol">Kutipan Baru</span>
+                    <div class="loader" id="animasi-loader"></div>
+                </button>
+            </div>
+
+            <!-- Tombol Aksi Tambahan -->
+            <div class="baris-aksi">
+                <button class="tombol tombol-sekunder" id="btn-salin" title="Salin ke Clipboard">
+                    <!-- SVG Icon Copy -->
+                    <svg class="ikon-svg" viewBox="0 0 24 24">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                    </svg>
+                    Salin
+                </button>
+                <button class="tombol tombol-sekunder" id="btn-wa" title="Bagikan ke WhatsApp">
+                    <!-- SVG Icon WhatsApp -->
+                    <svg class="ikon-svg" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    Bagikan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifikasi Toast Tersembunyi -->
+    <div class="toast" id="pesan-toast">
+        <svg style="width:20px;height:20px;fill:#4caf50;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span id="isi-pesan">Kutipan berhasil disalin!</span>
+    </div>
+
+    <script>
+        // =========================================
+        // 1. DATA: KUMPULAN KUTIPAN (ARRAY)
+        // =========================================
+        const daftarKutipan = [
+            { text: "Disiplin akan membawamu ke tempat yang tak bisa dicapai motivasi.", author: "Unknown" },
+            { text: "Tetap kokoh bahkan saat tak ada yang memperhatikan.", author: "Unknown" },
+            { text: "Pemenang mengulang hal-hal yang membosankan secara konsisten.", author: "Unknown" },
+            { text: "Tindakan di atas kecemasan.", author: "Unknown" },
+            { text: "Masa depanmu diciptakan oleh apa yang kamu lakukan hari ini.", author: "Robert Kiyosaki" },
+            { text: "Jangan berhenti saat kamu lelah. Berhentilah saat kamu selesai.", author: "Unknown" },
+            { text: "Keheningan adalah teriakan paling kuat.", author: "Unknown" },
+            { text: "Mimpi tidak bekerja kecuali kamu bekerja.", author: "John C. Maxwell" },
+            { text: "Langkah kecil ke arah yang benar bisa menjadi langkah terbesar dalam hidupmu.", author: "Unknown" },
+            { text: "Kesederhanaan adalah bentuk kemewahan tertinggi.", author: "Leonardo da Vinci" },
+            { text: "Bintang tak bisa bersinar tanpa kegelapan.", author: "Unknown" },
+            { text: "Fokuslah menjadi produktif, bukan hanya sibuk.", author: "Tim Ferriss" },
+            { text: "Lakukannya dengan passion atau jangan lakukan sama sekali.", author: "Rosa Nouveau" },
+            { text: "Apa yang kita pikirkan, itulah yang menjadi kita.", author: "Buddha" },
+            { text: "Semua keterbatasan adalah self-imposed.", author: "Oliver Wendell Holmes" },
+            { text: "Waktu sulit tidak pernah abadi, tapi orang kuat bisa abadi.", author: "Robert H. Schuller" },
+            { text: "Masalah bukan tanda berhenti, melainkan petunjuk.", author: "Robert H. Schuller" },
+            { text: "Suatu hari atau hari pertama. Kamu yang memutuskan.", author: "Unknown" },
+            { text: "Jadilah sangat hebat sehingga mereka tidak bisa mengabaikanmu.", author: "Steve Martin" },
+            { text: "Cara terbaik memprediksi masa depan adalah menciptakannya.", author: "Peter Drucker" },
+            { text: "Jangan menatap jam; lakukan apa yang dilakukannya. Teruslah berjalan.", author: "Sam Levenson" },
+            { text: "Semua yang bisa kamu bayangkan adalah nyata.", author: "Pablo Picasso" },
+            { text: "Rahasia sukses adalah memulai.", author: "Mark Twain" },
+            { text: "Sepertinya selalu mustahil sampai selesai dilakukan.", author: "Nelson Mandela" },
+            { text: "Mulailah dari tempatmu sekarang. Gunakan apa yang kamu miliki. Lakukan yang bisa kamu lakukan.", author: "Arthur Ashe" },
+            { text: "Jangan didorong oleh rasa takut di pikiranmu. Dipimpin oleh mimpi di hatimu.", author: "Roy T. Bennett" },
+            { text: "Bekerja keraslah dalam keheningan dan biarkan kesuksesanmu yang berbicara.", author: "Unknown" },
+            { text: "Konsistensi adalah kunci untuk menembus batas.", author: "Unknown" },
+            { text: "Tingkatkan pola pikirmu, tingkatkan hidupmu.", author: "Unknown" },
+            { text: "Buatlah simpel, tapi berarti.", author: "Unknown" }
+        ];
+
+        // =========================================
+        // 2. SELEKSI ELEMEN DOM
+        // =========================================
+        const teksQuote = document.getElementById('teks-quote');
+        const namaPenulis = document.getElementById('nama-penulis');
+        const btnQuoteBaru = document.getElementById('btn-quote-baru');
+        const btnSalin = document.getElementById('btn-salin');
+        const btnWA = document.getElementById('btn-wa');
+        const loader = document.getElementById('animasi-loader');
+        const teksTombol = document.querySelector('.teks-tombol');
+        const toast = document.getElementById('pesan-toast');
+        const isiPesan = document.getElementById('isi-pesan');
+
+        // Variabel status pencegahan klik ganda
+        let sedangAnimasi = false;
+
+        // =========================================
+        // 3. FUNGSI-FUNGSI LOGIKA
+        // =========================================
+
+        // Fungsi Utama: Menghasilkan Kutipan Acak
+        function tampilkanKutipanAcak() {
+            // Cek jika animasi sedang berjalan, hentikan fungsi
+            if (sedangAnimasi) return;
+            sedangAnimasi = true;
+
+            // Tampilkan loader, sembunyikan teks tombol
+            teksTombol.style.display = 'none';
+            loader.style.display = 'block';
+
+            // Tambahkan kelas untuk animasi memudar keluar (Fade Out)
+            teksQuote.classList.remove('memudar-masuk');
+            teksQuote.classList.add('memudar-keluar');
+            namaPenulis.classList.remove('memudar-masuk');
+            namaPenulis.classList.add('memudar-keluar');
+
+            // Tunggu sebentar agar animasi CSS selesai (delay 500ms)
+            setTimeout(() => {
+                // Pilih kutipan secara acak dari array
+                const indeksAcak = Math.floor(Math.random() * daftarKutipan.length);
+                const kutipanSaatIni = daftarKutipan[indeksAcak];
+
+                // Ganti isi teks HTML dengan data baru
+                teksQuote.textContent = `"${kutipanSaatIni.text}"`;
+                namaPenulis.textContent = `- ${kutipanSaatIni.author}`;
+
+                // Hapus kelas keluar, tambahkan kelas masuk (Fade In)
+                teksQuote.classList.remove('memudar-keluar');
+                teksQuote.classList.add('memudar-masuk');
+                namaPenulis.classList.remove('memudar-keluar');
+                namaPenulis.classList.add('memudar-masuk');
+
+                // Kembalikan tampilan tombol ke normal
+                loader.style.display = 'none';
+                teksTombol.style.display = 'block';
+                
+                // Izinkan klik kembali
+                sedangAnimasi = false;
+            }, 500); 
+        }
+
+        // Fungsi: Menyalin Teks ke Clipboard
+        function salinKeClipboard() {
+            // Gabungkan teks kutipan dan penulis
+            const teksUntukDisalin = `${teksQuote.textContent} ${namaPenulis.textContent}`;
+            
+            // Menggunakan API Navigator Clipboard
+            navigator.clipboard.writeText(teksUntukDisalin).then(() => {
+                tampilkanNotifikasi("Kutipan berhasil disalin!");
+            }).catch(err => {
+                tampilkanNotifikasi("Gagal menyalin teks.");
+                console.error('Error saat menyalin: ', err);
+            });
+        }
+
+        // Fungsi: Membagikan ke WhatsApp
+        function bagikanKeWA() {
+            const teksUntukDibagikan = encodeURIComponent(`${teksQuote.textContent} ${namaPenulis.textContent}`);
+            // Membuka link API WhatsApp di tab baru
+            const urlWA = `https://wa.me/?text=${teksUntukDibagikan}`;
+            window.open(urlWA, '_blank');
+        }
+
+        // Fungsi: Menampilkan Notifikasi Toast
+        function tampilkanNotifikasi(pesan) {
+            isiPesan.textContent = pesan;
+            toast.classList.add('muncul');
+            
+            // Hilangkan notifikasi setelah 3 detik
+            setTimeout(() => {
+                toast.classList.remove('muncul');
+            }, 3000);
+        }
+
+        // =========================================
+        // 4. EVENT LISTENER (PENGAWAS KLIK)
+        // =========================================
+        
+        // Jalankan kutipan pertama saat halaman selesai dimuat
+        window.addEventListener('DOMContentLoaded', tampilkanKutipanAcak);
+
+        // Pasang fungsi pada tombol-tombol
+        btnQuoteBaru.addEventListener('click', tampilkanKutipanAcak);
+        btnSalin.addEventListener('click', salinKeClipboard);
+        btnWA.addEventListener('click', bagikanKeWA);
+
+    </script>
+</body>
+</html>
